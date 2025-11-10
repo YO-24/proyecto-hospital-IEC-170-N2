@@ -60,3 +60,20 @@ class Cita:
         conexion.close()
         print("Cita eliminada correctamente.")
 
+    @staticmethod
+    def buscar_citas_por_paciente(id_paciente):
+        conexion = conectar_db()
+        cursor = conexion.cursor()
+        cursor.execute("SELECT * FROM Cita WHERE id_paciente = ?", (id_paciente,))
+        citas = cursor.fetchall()
+        conexion.close()
+        if citas:
+            print(f"Citas del paciente {id_paciente}:")
+            for cita in citas:
+                print(cita)
+        else:
+            print("No se encontraron citas para este paciente.")
+        return citas
+
+
+
